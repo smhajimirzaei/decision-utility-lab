@@ -171,6 +171,18 @@ def choose(scores):
     return next(i for i, v in enumerate(scores) if v >= top - 1e-10)
 
 
+def _sequential_sum(values):
+    """Preserve the recorded float arithmetic across Python versions.
+
+    Python 3.12 changed built-in float summation. The frozen report used
+    sequential addition, so keep that order explicit for exact reproduction.
+    """
+    total = 0.0
+    for value in values:
+        total += value
+    return total
+
+
 def audit_state(s, size, selector):
     require(2 <= size <= len(s["candidates"]), "Candidate budget outside bank")
     y = [row[:size] for row in s["outcomes"]]
@@ -195,12 +207,14 @@ def audit_state(s, size, selector):
         if chosen is None
         else [float(i == chosen) for i in range(size)]
     )
-    success = sum(w * v for w, v in zip(weights, means))
+    success = _sequential_sum(w * v for w, v in zip(weights, means))
     help = mean(
-        sum(weights[i] * int(row[i] > row[0]) for i in range(size)) for row in y
+        _sequential_sum(weights[i] * int(row[i] > row[0]) for i in range(size))
+        for row in y
     )
     harm = mean(
-        sum(weights[i] * int(row[i] < row[0]) for i in range(size)) for row in y
+        _sequential_sum(weights[i] * int(row[i] < row[0]) for i in range(size))
+        for row in y
     )
     opportunity = best - base
     regret = best - success

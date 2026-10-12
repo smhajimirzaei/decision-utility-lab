@@ -8,7 +8,9 @@ Python 3.10+ is sufficient for the generic audit. It loads the public cached sco
 python -S scripts/audit_decisions.py --input demo/inputs.json --output runs/reproduction
 ```
 
-The output report should match `demo/report.json` exactly. The recorded media sits in `demo/assets/`. Rebuilding the portable presentation uses the same inputs:
+The output report should match `demo/report.json` exactly. Weighted candidate metrics use explicit sequential float addition to preserve the recorded arithmetic across Python versions. This avoids the last-bit differences introduced by Python 3.12's change to built-in `sum`.
+
+The recorded media sits in `demo/assets/`. Rebuilding the portable presentation uses the same inputs:
 
 ```bash
 python scripts/build_demo.py --input demo/inputs.json --output runs/demo
