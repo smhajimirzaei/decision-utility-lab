@@ -1,0 +1,37 @@
+{
+  "stage": "M2_design_pending_M1_validation",
+  "seed": 1729,
+  "tasks": ["reach-v3", "push-v3", "door-open-v3"],
+  "world_model_source": {
+    "repository": "https://github.com/facebookresearch/jepa-wms",
+    "commit": "13cf1d9c7e476f53c17714d2e0f1dc239a883ce0",
+    "entrypoint": "jepa_wm_metaworld",
+    "frameskip": 5,
+    "action_skip": 1,
+    "image_size": 224,
+    "checkpoint_revision": null,
+    "adapter_validated": false
+  },
+  "candidate_banks": {
+    "sizes": [4, 8, 16],
+    "nested": true,
+    "include_base_at_index": 0,
+    "adaptive_cem": "separate_experiment"
+  },
+  "branching": {
+    "execution_environment_steps": 15,
+    "continuation_environment_steps": 150,
+    "primary_outcome": "ever_success_during_execution_and_continuation",
+    "continuation_policy": "same_frozen_policy_with_matched_rng",
+    "required_replay_tolerance": 1e-9,
+    "privileged_fields_allowed_at_runtime": false
+  },
+  "split": {
+    "unit": "whole_episode",
+    "fractions": {"train": 0.6, "validation": 0.15, "calibration": 0.1, "test": 0.15},
+    "additional_holdouts": ["planner_budget", "task_family", "perturbation"]
+  },
+  "baselines": ["base_policy", "always_rerank", "score_margin", "disagreement", "search_agnostic_gate", "search_conditioned_gate", "best_tested_candidate_oracle"],
+  "primary_metrics": ["task_success", "harmful_intervention_rate", "retained_beneficial_interventions", "candidate_regret", "latency"],
+  "status": "provisional_design_not_executed"
+}

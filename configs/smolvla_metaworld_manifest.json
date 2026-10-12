@@ -1,0 +1,19 @@
+{
+  "source_repository": "https://github.com/huggingface/lerobot.git",
+  "source_revision": "b9cb121cb7d4e3e26ec5c906d08dda68d151ba52",
+  "policy_repository": "lerobot/smolvla_metaworld",
+  "policy_revision": "cd6778d2cfa724c1bf5fc637490548e54d81dc4c",
+  "weights_file": "model.safetensors",
+  "weights_bytes": 906712520,
+  "weights_sha256": "6d3ce9f40627a247fa1c289517ec67da495810a58305c9bb1ec8588dfda0a736",
+  "normalizer_file": "policy_preprocessor_step_5_normalizer_processor.safetensors",
+  "normalizer_sha256": "c0c9c63faa7940ac521ada8c74baa83f993fdb64d8b127e29351c3cdeb81209f",
+  "base_repository": "HuggingFaceTB/SmolVLM2-500M-Video-Instruct",
+  "base_revision": "7b375e1b73b11138ff12fe22c8f2822d8fe03467",
+  "license": "Apache-2.0",
+  "runtime": {"python": "3.12", "torch": "2.7.0", "torchvision": "0.22.0", "metaworld": "3.0.0", "mujoco": "3.3.0", "gymnasium": "1.1.1"},
+  "controller_inputs": ["observation.state[:4]", "observation.images.camera1", "task instruction"],
+  "camera": {"name": "corner2", "position": [0.75, 0.075, 0.7], "flip_axes": [0, 1]},
+  "execution_chunk": 50,
+  "scope": "frozen base-policy feasibility; no reranking or gate"
+}

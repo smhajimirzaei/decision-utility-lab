@@ -1,0 +1,20 @@
+{
+  "purpose": "Exploratory frozen task-evaluator data; not gate calibration or final evaluation",
+  "tasks": ["reach-v3", "push-v3", "door-open-v3"],
+  "seeds": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  "candidate_count": 8,
+  "nested_banks": [4, 8],
+  "decision_steps": [0, 50, 100, 150],
+  "execution_prefix": 10,
+  "continuation_chunk": 50,
+  "episode_horizon": 400,
+  "endpoint": "ever-success, stopping on success",
+  "continuation_repeats": 1,
+  "train_seeds": [2, 3, 4, 5, 6, 7],
+  "validation_seeds": [8, 9],
+  "diagnostic_test_seeds": [10, 11],
+  "evaluator_training_features": "actual final 10-step latents, ordinary proprio, frozen instruction embedding and remaining horizon",
+  "excluded_labels": "any candidate achieving success within its prefix",
+  "later_gate_dataset": "new seeds disjoint from this entire collection",
+  "interpretation": "Realized paired outcomes; neither expected benefit nor a generalization claim"
+}

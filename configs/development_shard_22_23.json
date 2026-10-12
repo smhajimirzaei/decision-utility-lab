@@ -1,0 +1,58 @@
+{
+  "purpose": "Representative development data enrichment after the completed ranking diagnosis; no evaluator refit during collection",
+  "declared_date": "2026-10-10",
+  "tasks": [
+    "reach-v3",
+    "push-v3",
+    "door-open-v3"
+  ],
+  "seeds": [
+    22,
+    23
+  ],
+  "split": "development",
+  "episodes": 6,
+  "sampling": "Complete fixed task x seed grid; retain ties and failures; no outcome-based task, state or candidate sampling",
+  "candidate_count": 8,
+  "nested_banks": [
+    4,
+    8
+  ],
+  "decision_steps": [
+    0,
+    50,
+    100,
+    150
+  ],
+  "execution_prefix": 10,
+  "continuation_chunk": 50,
+  "continuation_repeats": 3,
+  "episode_horizon": 400,
+  "endpoint": "ever-success, stop on success",
+  "candidate_generation": "Unchanged policy samples with dedicated RNG; candidate zero retained",
+  "repeat_seed_formula": "500000 + episode_seed*1000 + state_step + repeat_index*10000000",
+  "online_diagnostic_readout": "artifacts/frozen_readout_20261009 (unchanged, does not choose collection actions)",
+  "offline_rankers": "artifacts/ranking_study_20261010 selected heads, frozen before this declaration",
+  "offline_analysis": "Evaluate frozen controls and rankers before any later refit; report complete episodes, all states and prefix eligibility separately, both banks, pair effects, selected help/harm and candidate opportunities",
+  "reserved_validation_seeds": [
+    32,
+    33,
+    34,
+    35
+  ],
+  "reserved_test_seeds": [
+    36,
+    37,
+    38,
+    39
+  ],
+  "provider_runtime_seconds": 7200,
+  "guest_shutdown_minutes": 120,
+  "collection_timeout_minutes": 100,
+  "cold_fallback_setup_timeout_minutes": 30,
+  "cold_fallback_collection_timeout_minutes": 80,
+  "successful_export_grace_seconds": 600,
+  "retrieval": "Archive and SHA256 verify locally; preserve the existing disk; stop the VM on completion/failure",
+  "advancement": "No gate, larger search or closed-loop launch from this shard; more episodes may expose representation/horizon failure as well as data scarcity",
+  "interpretation": "Three matched-repeat empirical frequencies are noisy development labels, not independent samples or expected-benefit guarantees"
+}

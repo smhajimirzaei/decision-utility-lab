@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Decision Utility Lab</title>
+    <style>
+      :root {
+        --ink: #182c36;
+        --muted: #596973;
+        --paper: #f5f3ed;
+        --line: #d9dfda;
+        --accent: #df633c;
+        --green: #146854;
+        --red: #a73736;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          15px/1.55 system-ui,
+          sans-serif;
+      }
+      main {
+        max-width: 1330px;
+        margin: auto;
+        padding: 32px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 18px;
+        gap: 20px;
+      }
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 13px;
+      }
+      .pill {
+        border: 1px solid var(--line);
+        padding: 5px 12px;
+        border-radius: 24px;
+        font-size: 12px;
+      }
+      .intro {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 40px;
+        margin: 44px 0 28px;
+      }
+      .eyebrow {
+        color: var(--accent);
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+      }
+      h1 {
+        font:
+          500 clamp(35px, 4vw, 58px)/1.1 Georgia,
+          serif;
+        margin: 12px 0 18px;
+        max-width: 800px;
+      }
+      h2 {
+        font-size: 19px;
+        margin: 0 0 12px;
+      }
+      p {
+        margin: 10px 0;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .stats {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .stats strong {
+        font:
+          500 36px Georgia,
+          serif;
+        display: block;
+      }
+      .stats span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .tour {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+      }
+      button,
+      select {
+        font: inherit;
+        color: var(--ink);
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 9px 12px;
+        cursor: pointer;
+      }
+      button:hover {
+        border-color: var(--accent);
+      }
+      select {
+        width: 100%;
+        min-width: 0;
+      }
+      label {
+        font-size: 11px;
+        font-weight: 750;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: 1.15fr 0.75fr 0.5fr 2fr;
+        gap: 14px;
+        background: #ebece5;
+        border: 1px solid var(--line);
+        padding: 20px;
+        border-radius: 12px;
+      }
+      .statebar {
+        display: flex;
+        gap: 10px;
+        align-items: end;
+        margin-top: 14px;
+      }
+      .statebar > div {
+        flex: 1;
+        min-width: 0;
+      }
+      .statebar button {
+        flex: 0;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin: 25px 0;
+      }
+      .card,
+      .panel {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 22px;
+      }
+      .card strong {
+        display: block;
+        font:
+          500 36px Georgia,
+          serif;
+        margin: 8px 0;
+      }
+      .card small {
+        color: var(--muted);
+      }
+      .equation {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 22px;
+        background: #182c36;
+        color: #fff;
+        border-radius: 10px;
+      }
+      .equation b {
+        font-weight: 550;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 20px;
+        margin-top: 25px;
+      }
+      .camera {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .camera img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        background: #eee;
+      }
+      .caption {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 5px 0 14px;
+      }
+      .callout {
+        border-left: 3px solid var(--accent);
+        padding: 10px 16px;
+        background: #faf5ec;
+        margin: 16px 0;
+      }
+      .positive {
+        color: var(--green);
+      }
+      .negative {
+        color: var(--red);
+      }
+      .tablewrap {
+        overflow: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+      }
+      th {
+        text-align: left;
+        color: var(--muted);
+        font-weight: 650;
+      }
+      th,
+      td {
+        padding: 9px 7px;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+      }
+      .chosen {
+        background: #ecf5f0;
+      }
+      .chosen td:first-child {
+        font-weight: 800;
+        color: var(--green);
+      }
+      video {
+        width: 100%;
+        aspect-ratio: 1;
+        background: #17252d;
+        border-radius: 6px;
+      }
+      .videoarea {
+        margin-top: 20px;
+      }
+      .columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .fine {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      svg {
+        width: 100%;
+        height: auto;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        margin-top: 32px;
+        padding-top: 20px;
+      }
+      .legend {
+        display: flex;
+        gap: 20px;
+        font-size: 12px;
+      }
+      .legend i {
+        width: 17px;
+        height: 3px;
+        background: var(--accent);
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+      .legend i.ref {
+        background: var(--ink);
+      }
+      details {
+        margin-top: 15px;
+      }
+      summary {
+        cursor: pointer;
+      }
+      a {
+        color: var(--green);
+      }
+      button:focus-visible,
+      select:focus-visible {
+        outline: 3px solid #dd9978;
+        outline-offset: 2px;
+      }
+      .panel,
+      .card,
+      .camera > div,
+      .grid > div,
+      .columns > div {
+        min-width: 0;
+      }
+      .tablewrap {
+        max-width: 100%;
+      }
+      @media (max-width: 750px) {
+        main {
+          padding: 18px;
+        }
+        .intro,
+        .grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 20px;
+        }
+        .intro {
+          margin-top: 28px;
+        }
+        .stats {
+          justify-content: space-between;
+        }
+        .controls {
+          grid-template-columns: 1fr 1fr;
+          padding: 14px;
+        }
+        .cards {
+          gap: 8px;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .card {
+          padding: 12px;
+        }
+        .card strong {
+          font-size: 27px;
+        }
+        .card small {
+          font-size: 11px;
+        }
+        .equation {
+          display: block;
+          font-size: 13px;
+        }
+        .panel {
+          padding: 16px;
+        }
+        .columns {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .pill {
+          font-size: 10px;
+        }
+        header {
+          align-items: center;
+        }
+        .brand {
+          font-size: 11px;
+        }
+        table {
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="brand">Decision Utility Lab</div>
+        <div class="pill">Recorded simulation · development study</div>
+      </header>
+      <section class="intro">
+        <div>
+          <div class="eyebrow">VLA proposals × world-model forecasts</div>
+          <h1>When does imagination<br />improve a decision?</h1>
+          <p class="muted">
+            Inspect the available choices, the evaluator’s decision and its
+            measured consequences. Every intervention uses three matched
+            continuations. Favorable outcomes, harmful switches and ties remain
+            visible.
+          </p>
+        </div>
+        <div class="stats">
+          <div><strong>54</strong><span>decision states</span></div>
+          <div><strong>18</strong><span>source episodes</span></div>
+          <div><strong>42</strong><span>frozen scorers</span></div>
+        </div>
+      </section>
+      <div class="tour">
+        <span class="fine" style="align-self: center">Explore a case:</span
+        ><button data-tour="helpful">Available improvement</button
+        ><button data-tour="harmful">Harmful switch</button
+        ><button data-tour="tied_failure">Tied failure</button
+        ><button data-tour="tied_success">Tied success</button>
+      </div>
+      <section class="controls">
+        <div>
+          <label for="cohort">Population</label
+          ><select id="cohort">
+            <option value="all_development">All inspected development</option>
+            <option value="inspected27_28">Initial · seeds27/28</option>
+            <option value="replication30_31">Replication · seeds30/31</option>
+            <option value="selection41_42">Prospective · seeds41/42</option>
+          </select>
+        </div>
+        <div>
+          <label for="bank">Proposal bank</label
+          ><select id="bank">
+            <option value="policy">Eight VLA samples</option>
+            <option value="mixed">VLA + perturbations</option>
+          </select>
+        </div>
+        <div>
+          <label for="size">Candidate budget</label
+          ><select id="size">
+            <option>8</option>
+            <option>4</option>
+          </select>
+        </div>
+        <div>
+          <label for="selector">Fixed evaluator / control</label
+          ><select id="selector"></select>
+        </div>
+      </section>
+      <div class="statebar">
+        <button id="previous" aria-label="Previous decision">←</button>
+        <div>
+          <label for="state">Decision to inspect</label
+          ><select id="state"></select>
+        </div>
+        <button id="next" aria-label="Next decision">→</button>
+      </div>
+      <p class="fine" style="margin-top: 24px">
+        Population averages for the selected bank, budget and evaluator. The
+        individual decision is explained below.
+      </p>
+      <section class="cards">
+        <div class="card">
+          <label>Available improvement</label><strong id="opportunity">—</strong
+          ><small>Best tested choice − reference</small>
+        </div>
+        <div class="card">
+          <label>Selected improvement</label><strong id="gain">—</strong
+          ><small>Fixed selector − reference</small>
+        </div>
+        <div class="card">
+          <label>Selection regret</label><strong id="regret">—</strong
+          ><small>Best tested choice − selected</small>
+        </div>
+      </section>
+      <div class="equation">
+        <b>Selected improvement = available improvement − selection regret</b
+        ><span id="population" class="fine" style="color: #c5d4d6"></span>
+      </div>
+      <section class="grid">
+        <div class="panel">
+          <div class="eyebrow" id="identity"></div>
+          <h2 id="instruction"></h2>
+          <div class="camera">
+            <div>
+              <img id="vla" alt="Actual native VLA camera observation" />
+              <div class="caption">VLA camera · actual480×480 input</div>
+            </div>
+            <div>
+              <img id="wm" alt="Actual native world-model camera observation" />
+              <div class="caption">
+                World-model camera · actual224×224 input
+              </div>
+            </div>
+          </div>
+          <div class="callout" id="explanation"></div>
+          <div class="columns">
+            <div>
+              <h2>Translation commands</h2>
+              <div id="actions"></div>
+              <div class="legend">
+                <span><i class="ref"></i>Reference</span
+                ><span><i></i>Selected</span>
+              </div>
+              <p class="fine">
+                Three command channels across the50-action prefix. Commands are
+                not physical displacement.
+              </p>
+            </div>
+            <div>
+              <h2>Input diagnostics</h2>
+              <div id="diagnostics"></div>
+              <p class="fine">
+                Latent measurements have representation-specific units;
+                numerical spread does not establish decision usefulness.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Matched intervention outcomes</h2>
+          <p class="fine" id="choiceNote"></p>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Choice</th>
+                  <th>Score</th>
+                  <th>Success</th>
+                  <th>First hit · each repeat</th>
+                  <th>Endpoint50 observed</th>
+                </tr>
+              </thead>
+              <tbody id="candidates"></tbody>
+            </table>
+          </div>
+          <p class="fine">
+            Success is ever reaching the goal within the remaining horizon. A
+            dash is a recorded failure/censored branch, not a success at an
+            unknown time. Endpoint support is offline instrumentation.
+          </p>
+          <div class="videoarea">
+            <details>
+              <summary>Recorded source-policy execution</summary>
+              <video
+                id="video"
+                controls
+                muted
+                playsinline
+                preload="metadata"
+              ></video>
+              <p class="fine" id="sourceNote"></p>
+            </details>
+          </div>
+          <details>
+            <summary>What the comparison establishes</summary>
+            <p class="fine">
+              These are one-intervention branch outcomes, not the success rate
+              of a deployed closed-loop selector. Offline best uses the same
+              finite repeats to choose and evaluate; it is an optimistic
+              diagnostic. No model was fitted or selected here. Three repeats do
+              not precisely estimate true success probabilities. Technical
+              pilots and reserved final seeds are excluded. JEPA forecasts
+              latents; this demo does not display generated future videos.
+            </p>
+          </details>
+        </div>
+      </section>
+      <footer>
+        <h2>A reproducible decision audit</h2>
+        <p class="fine">
+          Repeat means within choices → reached decisions within each source
+          episode → source episodes equally. Adjacent decisions and candidate
+          branches are not independent episode samples. Switches can help in one
+          repeat and hurt in another. All42 deployment-input scorers remain
+          available; no favorable model is selected.
+        </p>
+        <p class="fine">
+          Offline files: <a href="report.json">complete report</a> ·
+          <a href="decisions.csv">decision table</a> ·
+          <a href="inputs.json">auditable inputs</a> ·
+          <a href="verification.json">verification and provenance</a>
+        </p>
+      </footer>
+    </main>
+    <script>
+      const DATA = __AUDIT_DATA__,
+        $ = (id) => document.getElementById(id),
+        states = DATA.inputs.states;
+      let current = null,
+        lastChosen = null;
+      const fmt = (x) => (100 * x).toFixed(2) + "%",
+        delta = (x) => (x >= 0 ? "+" : "") + (100 * x).toFixed(2) + " pp",
+        mean = (a) => a.reduce((x, y) => x + y, 0) / a.length,
+        escapeText = (s) =>
+          String(s).replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[c],
+          );
+      function options() {
+        let sel = $("selector"),
+          old = sel.value;
+        sel.replaceChildren();
+        for (const [value, text] of [
+          ["reference", "Reference choice0"],
+          ["uniform", "Exact uniform random"],
+          ["offline_best", "Best measured · offline"],
+          ...Array.from({ length: 8 }, (_, i) => [
+            "fixed:" + i,
+            "Always choice" + i,
+          ]),
+          ...Object.entries(DATA.inputs.selectors).map(([k, v]) => [
+            k,
+            (v.representation === "global" ? "Global" : "Spatial") +
+              " · " +
+              v.family +
+              " · " +
+              v.variant.replaceAll("_", " "),
+          ]),
+        ]) {
+          let o = new Option(text, value);
+          o.disabled =
+            value.startsWith("fixed:") &&
+            Number(value.split(":")[1]) >= Number($("size").value);
+          sel.add(o);
+        }
+        sel.value = Array.from(sel.options).some(
+          (o) => o.value === old && !o.disabled,
+        )
+          ? old
+          : "reference";
+      }
+      function filtered() {
+        return states.filter(
+          (s) =>
+            s.bank === $("bank").value &&
+            ($("cohort").value === "all_development" ||
+              s.cohort === $("cohort").value),
+        );
+      }
+      function updateStates() {
+        let old = $("state").value;
+        $("state").replaceChildren();
+        for (const s of filtered())
+          $("state").add(
+            new Option(
+              s.task + " · seed" + s.seed + " · action" + s.step,
+              s.episode_id + "/" + s.step,
+            ),
+          );
+        if (Array.from($("state").options).some((o) => o.value === old))
+          $("state").value = old;
+        render();
+      }
+      function evaluate(s, n, method) {
+        let y = s.outcomes.map((r) => r.slice(0, n)),
+          m = Array.from({ length: n }, (_, i) => mean(y.map((r) => r[i]))),
+          scores = null,
+          c = 0;
+        if (method === "uniform") c = null;
+        else if (method === "offline_best") c = m.indexOf(Math.max(...m));
+        else if (method.startsWith("fixed:")) c = Number(method.split(":")[1]);
+        else if (method !== "reference") {
+          scores = s.scores[method].slice(0, n);
+          c = scores.findIndex((v) => v >= Math.max(...scores) - 1e-10);
+        }
+        let w = m.map((_, i) => (c === null ? 1 / n : Number(i === c))),
+          success = m.reduce((sum, v, i) => sum + w[i] * v, 0),
+          help = mean(
+            y.map((r) =>
+              r.reduce((sum, v, i) => sum + w[i] * Number(v > r[0]), 0),
+            ),
+          ),
+          harm = mean(
+            y.map((r) =>
+              r.reduce((sum, v, i) => sum + w[i] * Number(v < r[0]), 0),
+            ),
+          );
+        return {
+          chosen: c,
+          scores,
+          means: m,
+          base: m[0],
+          success,
+          gain: success - m[0],
+          opportunity: Math.max(...m) - m[0],
+          regret: Math.max(...m) - success,
+          help,
+          harm,
+        };
+      }
+      function graph(s, c) {
+        let actions = s.action_trajectory,
+          points = (i, ch) =>
+            actions[i]
+              .map(
+                (a, t) => `${18 + (t * 264) / 49},${ch * 54 + 29 - a[ch] * 22}`,
+              )
+              .join(" ");
+        let lines = "";
+        for (let ch = 0; ch < 3; ch++) {
+          lines += `<line x1="18" y1="${ch * 54 + 29}" x2="282" y2="${ch * 54 + 29}" stroke="#e5e9e6"/><text x="0" y="${ch * 54 + 32}" font-size="10" fill="#596973">${["x", "y", "z"][ch]}</text><polyline points="${points(0, ch)}" fill="none" stroke="#182c36" stroke-width="1.6"/>`;
+          if (c !== null)
+            lines += `<polyline points="${points(c, ch)}" fill="none" stroke="#df633c" stroke-width="1.6"/>`;
+        }
+        return `<svg viewBox="0 0 290 168" role="img" aria-label="Reference and selected translation commands">${lines}</svg>`;
+      }
+      function render() {
+        options();
+        let n = Number($("size").value),
+          method = $("selector").value,
+          list = filtered();
+        current =
+          list.find((s) => s.episode_id + "/" + s.step === $("state").value) ||
+          list[0];
+        let r = evaluate(current, n, method);
+        lastChosen = r.chosen;
+        let aggregate = DATA.summaries.find(
+          (s) =>
+            s.cohort === $("cohort").value &&
+            s.bank === $("bank").value &&
+            s.size === n &&
+            s.selector === method,
+        );
+        $("opportunity").textContent = delta(aggregate.opportunity);
+        $("gain").textContent = delta(aggregate.gain);
+        $("gain").className =
+          aggregate.gain < 0
+            ? "negative"
+            : aggregate.gain > 0
+              ? "positive"
+              : "";
+        $("regret").textContent = delta(aggregate.regret);
+        $("population").textContent =
+          aggregate.episodes +
+          " episodes · " +
+          aggregate.states +
+          " reached states";
+        $("identity").textContent =
+          current.task + " / seed" + current.seed + " / action" + current.step;
+        $("instruction").textContent = current.instruction;
+        for (const m of ["vla", "wm"]) $(m).src = current.images[m];
+        $("video").src = current.video;
+        $("sourceNote").textContent =
+          "Actual source-policy episode: " +
+          (current.source_success ? "goal reached" : "goal not reached") +
+          " in " +
+          current.source_steps +
+          " actions. Sampled recording, not real-time footage. This video is separate from the forked interventions above.";
+        let context =
+          r.chosen === null
+            ? "Uniform control averages all logical choices."
+            : method === "offline_best"
+              ? "Offline best uses outcomes to identify an optimistic tested choice."
+              : `The fixed scorer/control chooses choice ${r.chosen} before outcome inspection.`;
+        let conclusion =
+          r.opportunity === 0
+            ? "This measured bank offers no improvement over the reference."
+            : `A tested alternative offers ${delta(r.opportunity)} improvement over reference.`;
+        let harm =
+          r.gain < 0
+            ? "The selected choice loses " +
+              (100 * -r.gain).toFixed(2) +
+              " pp relative to reference."
+            : r.gain > 0
+              ? "The selected choice gains " +
+                delta(r.gain) +
+                " relative to reference."
+              : "The selected control ties the reference.";
+        $("explanation").textContent = context + " " + conclusion + " " + harm;
+        $("choiceNote").textContent =
+          "This decision: reference " +
+          fmt(r.base) +
+          "; selected " +
+          fmt(r.success) +
+          "; paired help " +
+          fmt(r.help) +
+          "; paired harm " +
+          fmt(r.harm) +
+          ". Scores are evaluator outputs, not established calibrated probabilities.";
+        $("candidates").innerHTML = r.means
+          .map(
+            (v, i) =>
+              `<tr class="${r.chosen === i ? "chosen" : ""}"><td>${i}${i === 0 ? " · reference" : ""}</td><td>${r.scores ? r.scores[i].toFixed(3) : "—"}</td><td>${v.toFixed(3)}</td><td>${current.first_hit.map((t) => (t[i] === null ? "—" : t[i])).join(" / ")}</td><td>${current.forecast_supported[i] ? "Yes" : "No"}</td></tr>`,
+          )
+          .join("");
+        $("actions").innerHTML = graph(current, r.chosen);
+        let q = current.input_diagnostics;
+        $("diagnostics").innerHTML = [
+          ["Translation pair RMS", q.translation_pair_rms],
+          ["At translation bounds", q.translation_exact_bound_fraction],
+          ["Global forecast pair RMS", q.global_pair_rms],
+          ["Spatial forecast pair RMS", q.spatial_pair_rms],
+          ["Predicted sensor pair RMS", q.proprio_pair_rms],
+        ]
+          .map(
+            ([k, v]) =>
+              `<div class="fine" style="border-bottom:1px solid #d9dfda;padding:7px 0">${escapeText(k)} <b style="float:right">${v == null ? "—" : v.toFixed(4)}</b></div>`,
+          )
+          .join("");
+      }
+      function tour(type) {
+        $("cohort").value = "all_development";
+        $("bank").value = "policy";
+        $("size").value = "8";
+        options();
+        let method =
+          type === "helpful"
+            ? "offline_best"
+            : type === "harmful"
+              ? "legacy__global__predicted"
+              : "reference";
+        $("selector").value = method;
+        let s = filtered().find((s) => {
+          let r = evaluate(s, 8, method);
+          return type === "helpful"
+            ? r.opportunity > 0
+            : type === "harmful"
+              ? r.gain < 0
+              : type === "tied_success"
+                ? r.means.every((v) => v === 1)
+                : r.means.every((v) => v === 0);
+        });
+        updateStates();
+        if (s) {
+          $("state").value = s.episode_id + "/" + s.step;
+          render();
+        }
+      }
+      for (const id of ["cohort", "bank"])
+        $(id).addEventListener("change", updateStates);
+      for (const id of ["size", "selector", "state"])
+        $(id).addEventListener("change", render);
+      for (const [id, change] of [
+        ["next", 1],
+        ["previous", -1],
+      ])
+        $(id).onclick = () => {
+          let s = $("state");
+          s.selectedIndex =
+            (s.selectedIndex + change + s.options.length) % s.options.length;
+          render();
+        };
+      for (const b of document.querySelectorAll("[data-tour]"))
+        b.onclick = () => tour(b.dataset.tour);
+      options();
+      updateStates();
+      window.DECISION_AUDIT = {
+        data: DATA,
+        render,
+        evaluate,
+        tour,
+        current: () => current,
+        chosen: () => lastChosen,
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,88 @@
+{
+  "declared_date": "2026-10-10",
+  "purpose": "Development-only paired proposal-opportunity and action-refresh diagnostic; no scorer fitting or gate",
+  "tasks": [
+    "reach-v3",
+    "push-v3",
+    "door-open-v3"
+  ],
+  "pilot_seeds": [
+    26
+  ],
+  "pilot_decision_steps": [
+    0
+  ],
+  "main_seeds": [
+    24,
+    25
+  ],
+  "main_decision_steps": [
+    0,
+    50,
+    100,
+    150
+  ],
+  "prefix_lengths": [
+    10,
+    50
+  ],
+  "candidate_count": 8,
+  "nested_banks": [
+    4,
+    8
+  ],
+  "continuation_repeats": 3,
+  "episode_horizon": 400,
+  "continuation_chunk": 50,
+  "world_frameskip": 5,
+  "proposal_seed_formula": "100000 + episode_seed*1000 + state_step",
+  "repeat_seed_formula": "500000 + episode_seed*1000 + state_step + repeat_index*10000000",
+  "sampling": "Fixed complete task x seed grids; retain ties/failures; same full proposal bank, source state and repeat seeds in both prefix conditions; no outcome-based advancement or filtering",
+  "endpoint": "ever-success; stop branches and source policy on success/termination/truncation or absolute step400",
+  "forecast_audit": "Unroll all50 clipped actions (ten JEPA transitions); compare separate ten-action unroll to first two transitions; encode physical futures every5 actions, masking frames after first stop. No outcomes are model inputs",
+  "forecast_prefix_equivalence_atol": 5e-06,
+  "value_scorers": "None: old ten-action scorer/ranker semantics are not transferred to50 actions",
+  "runtime": {
+    "existing_instance": "research-gpu",
+    "zone": "us-central1-a",
+    "fallback_instance": "trust-imagination-l4",
+    "fallback_zone": "us-east4-a",
+    "provider_cap_seconds": 7200,
+    "guest_shutdown_minutes": 120,
+    "experiment_timeout_minutes": 100,
+    "pilot_timeout_minutes": 20,
+    "per_main_shard_timeout_minutes": 45,
+    "export_grace_seconds": 600,
+    "runtime_estimate_safety_factor": 1.25,
+    "runtime_estimate_fixed_overhead_seconds": 120,
+    "main_shard_worst_case_states": 12,
+    "advancement": "Pilot must pass replay/finite prediction/prefix equivalence. Start each complete three-task main seed shard only when worst-case pilot timing estimate fits its45-minute timeout and remaining100-minute budget. Runtime-only stopping is recorded as partial; never report partial as completed six-episode grid",
+    "new_resource_allocation": false
+  },
+  "reserved_validation_seeds": [
+    32,
+    33,
+    34,
+    35
+  ],
+  "reserved_test_seeds": [
+    36,
+    37,
+    38,
+    39
+  ],
+  "analysis": "Episode means and paired prefix contrasts, both nested banks; base/always-one/random/best measured offline controls; helpful/harmful opportunity and early-prefix success separately; common support forecast error vs persistence; no bootstrap claims from correlated branches; no gate or closed-loop result",
+  "execution_revision": "Whole episodes instead of three-task seed shards; pilot technical timing only; main outcomes not inspected",
+  "main_runtime": {
+    "experiment_timeout_minutes": 100,
+    "per_episode_timeout_minutes": 30,
+    "max_states_per_episode": 4,
+    "safety_factor": 1.25,
+    "fixed_overhead_seconds": 60,
+    "remaining_margin_seconds": 120,
+    "export_grace_seconds": 600,
+    "provider_cap_seconds": 7200,
+    "new_resource_allocation": false,
+    "order": "seed-major, task list order; complete episodes only; resume remaining fixed identifiers under identical declaration"
+  }
+}

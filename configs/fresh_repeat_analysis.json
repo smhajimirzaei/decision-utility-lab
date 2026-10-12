@@ -1,0 +1,14 @@
+{
+  "scope": "All-repeat descriptive analysis of the six-episode fresh development shard",
+  "run_id": "fresh_repeat_20261009T172045Z",
+  "readout_and_comparators": "Frozen before fresh collection; no refitting from this shard",
+  "probability_controls": "Global/task priors derived only from eligible original training episodes, seeds 2 through 7",
+  "brier": "Mean binary squared probability error over each of the three repeats, then candidates within state, states within episode, and episodes",
+  "selection": "Choose one fixed candidate using frozen scores before downstream outcomes; preserve first-index argmax ties",
+  "random_control": "Exact expectation over all bank candidates including candidate zero",
+  "simulator_diagnostic": "One fixed candidate maximizing empirical mean success over three repeats; unavailable deployment upper bound on this measured sample",
+  "populations": "Report all collected decisions, plus the legacy subset where no candidate in the nested bank succeeded during its prefix. The eligibility mask is offline instrumentation and cannot be a controller input.",
+  "uncertainty": "Paired descriptive bootstrap of complete source episodes only; six clusters are too few for strong claims",
+  "analysis_history": "All-state sensitivity reporting and training-prior controls were added during collection after reach progress labels were visible. This is not a preregistered confirmatory analysis; collection, frozen models, candidate choices and original eligible-subset reporting were unchanged.",
+  "score_verification": "Initial 1e-6 tolerance exposed maximum 1.3411e-6 cross-system float32 score differences; all nested-bank choices matched. Documented absolute tolerance 5e-6; immutable VM scores and frozen checkpoints unchanged."
+}

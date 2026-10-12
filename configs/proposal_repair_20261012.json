@@ -1,0 +1,103 @@
+{
+  "declared_date": "2026-10-12",
+  "purpose": "Prepared prospective radius-only proposal pilot; no fitted or scored selector",
+  "tasks": [
+    "reach-v3",
+    "push-v3",
+    "door-open-v3"
+  ],
+  "pilot_seed": 44,
+  "main_seeds": [
+    45,
+    46
+  ],
+  "pilot_decision_steps": [
+    0
+  ],
+  "main_decision_steps": [
+    0,
+    50,
+    100,
+    150
+  ],
+  "episode_horizon": 400,
+  "execution_prefix": 50,
+  "continuation_chunk": 50,
+  "baseline_execution_chunk": 50,
+  "policy_samples": 8,
+  "logical_pool_size": 16,
+  "banks": {
+    "policy": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "mixed": [
+      0,
+      1,
+      2,
+      3,
+      8,
+      9,
+      10,
+      11
+    ],
+    "repair": [
+      0,
+      1,
+      2,
+      3,
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "nested_banks": [
+    4,
+    8
+  ],
+  "continuation_repeats": 3,
+  "proposal_seed_offset": 100000,
+  "perturbation_seed_offset": 200000,
+  "perturbation_amplitude": 0.1,
+  "perturbation": "Original two seeded unit XYZ directions and +/- ordering, same sin-squared envelope and gripper; mixed radius0.1, repair radius0.25; clip[-1,1]",
+  "identity": "Deduplicate all sixteen logical clipped proposals; preserve every old logical identity, share the first four across three banks, and reuse unique forecasts/outcomes",
+  "world_transitions": 10,
+  "world_frameskip": 5,
+  "forecast_batch_limit": 8,
+  "forecast_prefix_equivalence_atol": 5e-06,
+  "outcome": "Ever-success under frozen matched-seed continuation; stop at success, termination, truncation or absolute episode step400",
+  "sampling": "Complete fixed task x seed grids, every reached declared decision, retain ties/failures/duplicates; no outcome-based sampling or progression",
+  "language": "Record instruction text; no new learned instruction embedding is used by this collector",
+  "reserved_validation_test_seeds": [
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39
+  ],
+  "runtime": {
+    "provider_cap_seconds": 7200,
+    "experiment_cap_seconds": 6000,
+    "pilot_stage_timeout_seconds": 1500,
+    "episode_timeout_seconds": 1800,
+    "safety_factor": 1.25,
+    "fixed_overhead_seconds": 60,
+    "max_states_per_episode": 4,
+    "remaining_margin_seconds": 120,
+    "export_grace_seconds": 600,
+    "pre_export_margin_seconds": 720,
+    "minimum_free_bytes": 10737418240
+  },
+  "analysis": "Trace-first bank opportunity and every fixed index at K4/K8; technical pilot separate; no fit, model selection, or controller gain claim",
+  "repair_amplitude": 0.25
+}

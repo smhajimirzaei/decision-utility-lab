@@ -1,0 +1,8 @@
+{
+  "status": "verified",
+  "cached_report_matches_standard_library_api": true,
+  "recorded_input_values_unchanged": true,
+  "source_integer_and_episode_weight_checks": 83640,
+  "source_proof": "provenance/source_independent_verification.json",
+  "report_sha256": "5d8e6ee8238e36add8a698a9982b0c08631bbecbec5a63d751c3126daf8bec81"
+}

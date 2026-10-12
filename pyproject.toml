@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "decision-utility-lab"
+version = "0.1.0"
+description = "Matched-intervention audits for VLA and world-model action selection"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8", "numpy==2.2.6"]
+research = ["numpy==2.2.6", "mujoco>=3.2,<4", "metaworld>=3,<4", "imageio>=2.31", "imageio-ffmpeg>=0.4"]
+dev = ["black==26.10.1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.black]
+target-version = ["py310"]
+line-length = 88

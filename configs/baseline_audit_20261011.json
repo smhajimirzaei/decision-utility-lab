@@ -1,0 +1,26 @@
+{
+  "scope": "Post-inspection local development diagnostic; no compute activation or model selection",
+  "training_seeds": [24, 25],
+  "transfer_seeds": [27, 28, 30, 31],
+  "reserved_seeds": [32, 33, 34, 35, 36, 37, 38, 39],
+  "representations": ["global", "spatial"],
+  "banks": ["policy", "mixed"],
+  "sizes": [4, 8],
+  "linear_variants": ["current_only", "direct", "predicted_proprio", "predicted_visual", "predicted_both", "direct_predicted_proprio", "direct_predicted_both", "nonvisual_direct", "nonvisual_direct_predicted"],
+  "nonlinear_variants": ["direct", "direct_predicted_both", "nonvisual_direct", "nonvisual_direct_predicted"],
+  "random_map_seeds": [601, 602],
+  "random_map_width": 128,
+  "l2": 0.1,
+  "normalization_floor": 0.05,
+  "normalization_clip": 10.0,
+  "training_cache": "artifacts/cadence_feature_audit_20261011",
+  "training_source": "artifacts/cadence_main_export_cadence_main_20261010T193901Z/artifacts/cadence_main_20261010T193901Z",
+  "transfer_sources": [
+    {"name": "inspected", "seeds": [27, 28], "source": "artifacts/proposal_export_proposal_20261011T190449Z/artifacts/proposal_20261011T190449Z", "analysis": "artifacts/proposal_analysis_20261011", "study": "artifacts/proposal_frozen_value_20261011"},
+    {"name": "replication", "seeds": [30, 31], "source": "artifacts/replication_export_proposal_20261011T204617Z/artifacts/proposal_20261011T204617Z", "analysis": "artifacts/replication_analysis_20261011", "study": "artifacts/replication_frozen_value_20261011"}
+  ],
+  "output": "artifacts/baseline_audit_20261011_v2",
+  "technical_revision": "v2: corrected episode identity reader before any fit; first frozen attempt preserved",
+  "expected_new_fits": 102,
+  "selected_model": null
+}

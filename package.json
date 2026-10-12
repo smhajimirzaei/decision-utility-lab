@@ -1,0 +1,10 @@
+{
+  "name": "decision-utility-lab",
+  "private": true,
+  "scripts": {
+    "format:demo": "prettier --write scripts/demo_template.html scripts/verify_demo_browser.cjs"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}

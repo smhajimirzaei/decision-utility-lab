@@ -1,0 +1,17 @@
+{
+  "purpose": "Development-only readout study; previously inspected test episodes excluded",
+  "train_seeds": [2, 3, 4, 5, 6, 7],
+  "validation_seeds": [8, 9],
+  "excluded_source_seeds": [0, 1, 10, 11],
+  "latent_variants": ["spatial", "global", "spatial_no_proprio"],
+  "linear_l2_grid": [0.001, 0.01, 0.1, 1.0],
+  "updates": 800,
+  "learning_rate": 0.01,
+  "selection": "Lowest actual-future validation episode-mean Brier across declared linear grid and original frozen MLP; no test metrics",
+  "controls": ["base", "always_candidate_one", "uniform_random_including_base", "current_only", "direct_action", "predicted_future", "actual_future_offline", "simulator_upper_bound"],
+  "learning_curve_train_seed_groups": [[2, 3], [2, 3, 4, 5], [2, 3, 4, 5, 6, 7]],
+  "normalization": "Training rows only, std floor 0.05, clipped standardized features +/-10",
+  "weights": "Equal total weight per episode",
+  "exclusions": "Early-prefix success excluded from fitting; selection states require all tested candidates eligible",
+  "fresh_evaluation": "New episode seeds required before any revised-evaluator generalization claim"
+}

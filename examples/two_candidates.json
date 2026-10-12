@@ -1,0 +1,81 @@
+{
+  "schema": "decision-audit/1",
+  "scope": "Synthetic contract example; actions are byte payloads 00 and 01, not robot controls",
+  "episode_splits": {
+    "toy1": "development"
+  },
+  "selectors": {
+    "example_score": {
+      "input_scope": "deployment"
+    }
+  },
+  "states": [
+    {
+      "cohort": "toy",
+      "dataset": "main",
+      "split": "development",
+      "episode_id": "toy1",
+      "task": "synthetic",
+      "seed": 1,
+      "step": 0,
+      "bank": "two",
+      "reference_index": 0,
+      "repeat_ids": [
+        10,
+        20,
+        30
+      ],
+      "remaining_horizon": 20,
+      "outcomes": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "first_hit": [
+        [
+          1,
+          null
+        ],
+        [
+          null,
+          2
+        ],
+        [
+          null,
+          3
+        ]
+      ],
+      "forecast_supported": [
+        false,
+        true
+      ],
+      "candidates": [
+        {
+          "logical_id": 0,
+          "physical_id": 0,
+          "action_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+        },
+        {
+          "logical_id": 1,
+          "physical_id": 1,
+          "action_sha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a"
+        }
+      ],
+      "scores": {
+        "example_score": [
+          0.2,
+          0.8
+        ]
+      }
+    }
+  ]
+}

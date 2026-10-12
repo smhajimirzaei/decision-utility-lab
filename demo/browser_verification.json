@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "mathematicalChecks": 77112,
+  "domChecks": 1296,
+  "guideCases": 4,
+  "nativeImagesDecoded": 108,
+  "sourceVideosDecoded": 18,
+  "sourceVideoPlayback": true,
+  "outOfBankChoiceDisabled": true,
+  "models": 42,
+  "states": 54,
+  "mobile": {
+    "width": 390,
+    "scrollWidth": 390
+  }
+}

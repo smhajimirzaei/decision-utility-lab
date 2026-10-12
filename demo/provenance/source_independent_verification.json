@@ -1,0 +1,20 @@
+{
+  "status": "verified",
+  "independent_integer_count_and_episode_weight_checks": 83640,
+  "generic_cli_without_site_packages_identical": true,
+  "report_sha256": "efdf2d54f98e81cfa7180930e44d520d0f0f145680efab176d2f4eae6c1b16cd",
+  "inputs_sha256": "35e71c720a03442278613d776f86d9e383fbffd2c752fadcf3bc92b653d1183e",
+  "all42_scorers_shown": true,
+  "no_model_selected": true,
+  "figure_class_counts": {
+    "tied_failure": 31,
+    "tied_success": 16,
+    "helpful": 3,
+    "harmful": 4
+  },
+  "figure_digests": {
+    "decision_utility.png": "783134ffe81a4989df2a7c03c27251e289c2c522fb8350ba240d8bab280bf0f4",
+    "decision_utility.pdf": "1843538f2fcec08f0ce2b068f23715adce704d7898aaf8792acbba909da5993e",
+    "decision_utility.svg": "ca416e40b6ab3c3bafd9a96d4c3c5b89bb9fa6b959885d2140e6b44b56e97166"
+  }
+}

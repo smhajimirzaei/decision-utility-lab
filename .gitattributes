@@ -1,0 +1,16 @@
+* text=auto eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.txt text eol=lf
+*.html text eol=lf
+*.yml text eol=lf
+*.cjs text eol=lf
+*.png binary
+*.mp4 binary
+*.pdf binary
+demo/decision_utility.svg linguist-generated=true -diff
+demo/*.json linguist-generated=true
+demo/decisions.csv linguist-generated=true
+demo/index.html linguist-generated=true
