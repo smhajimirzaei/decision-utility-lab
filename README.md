@@ -35,12 +35,16 @@ This limits what a selector can achieve on these choices. Some future scorers ma
 
 See [results](docs/results.md) for the cohort comparison and [methodology](docs/methodology.md) for the intervention contract and weighting. These are development observations, not a final test or a combined closed-loop controller evaluation.
 
+The [October follow-up](docs/comparative-readouts.md) tests wider repair proposals and six comparative readouts. All-reference supervision improved some readouts, but every model still fell below the strong fixed-action control on the repair cohort. The release includes both complete readout tables, the comparison figure, and CPU tests for deployment features and paired labels. A separate 36-episode study has collected and verified its first six training episodes; see the [frozen protocol](docs/trajectory-study.md). The recorded demo above continues to show the original 18-episode audit.
+
 ## What is here
 
 | Path | Contents |
 |---|---|
 | `src/trust_imagination/decision_audit.py` | Model-independent validation and decision metrics |
 | `src/trust_imagination/` | Proposal construction, simulator branching, model adapters, and research readouts |
+| `src/trust_imagination/trajectory_benefit.py` | Direct, endpoint, and chronological forecast features with paired benefit heads |
+| `src/trust_imagination/pairwise_benefit_queries.py` | Comparison queries for arbitrary candidate references |
 | `scripts/audit_decisions.py` | Standard-library audit command |
 | `scripts/build_demo.py` | Rebuild the portable demo from cached audit inputs |
 | `scripts/analyze_*.py` | Trace and intervention analyses for raw research exports |
@@ -48,6 +52,7 @@ See [results](docs/results.md) for the cohort comparison and [methodology](docs/
 | `tests/` | CPU tests for contracts, metrics, readouts, and matched outcomes |
 | `demo/` | Recorded data, native observations, source videos, and verification records |
 | `docs/` | Methods, schema, results, and reproduction notes |
+| `docs/data/` | Complete comparative readout tables and fresh feature verification |
 
 The packaged demo is enough to reproduce the decision audit. Full simulator/model collection needs separate upstream downloads and a compatible research environment; see [reproduction notes](docs/reproduction.md). Model weights, raw latent archives, and cloud account configuration are not part of this release.
 

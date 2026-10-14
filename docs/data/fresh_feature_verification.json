@@ -1,0 +1,29 @@
+{
+  "status": "verified",
+  "source_episodes": 6,
+  "states": 16,
+  "seeds": [
+    47,
+    48
+  ],
+  "pilot_excluded": true,
+  "feature_blocks": 864,
+  "assertion_checks": 8016,
+  "poisoned_unused_keys": [
+    "actual_future_latents",
+    "actual_future_proprio",
+    "success",
+    "valid_mask",
+    "support_mask",
+    "first_hit_time",
+    "goal_position"
+  ],
+  "fits": 0,
+  "model_predictions": 0,
+  "performance_aggregates_written": false,
+  "reserved_unopened": true,
+  "source_extraction_sha256": "347fe890d77cb0de4b7c3877bab5a486169950ff691af248bfbb046ceff9a5b4",
+  "trace_integrity_sha256": "a58edf394779ba6e01d89ae42e05565988e72c40447aef0f84a77828203f7e48",
+  "implementation_sha256": "6420e8a7f054671a22e7b4d9737919a625656573c58c1ee583ada62ab22c7c84",
+  "frozen_feature_source_sha256": "20aa55779f7d69659c1045d50115c8eb6a09c2a6abb1b2c1c09c01675059c024"
+}

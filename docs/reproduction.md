@@ -27,6 +27,22 @@ python -m pytest -q
 
 The default suite covers CPU contracts, proposal construction, matched repeat metrics, synthetic trace auditing, and readouts. GPU/native-renderer checks require the separate research environment. CI does not download pretrained weights or execute robot control.
 
+The comparative feature and query tests can also be run on their own:
+
+```bash
+python -m pytest -q tests/test_trajectory_benefit.py tests/test_pairwise_benefit_queries.py
+```
+
+These tests check paired help/harm labels, reference identity, probability normalization, shared candidate geometry, outcome leakage, and sensitivity to earlier forecast frames. The public feature/query implementations preserve the research source semantics; formatting changes do not change their Python syntax trees.
+
+## Comparative readout records
+
+[`docs/data/fixed_reference_readouts.csv`](data/fixed_reference_readouts.csv) and [`docs/data/all_reference_readouts.csv`](data/all_reference_readouts.csv) retain all 432 aggregate records from each historical CPU round. Rates are fractions; `gain3`, `help3`, and `harm3` compare to fixed logical index 3. Each row identifies its cohort, readout, bank, budget, and threshold. `selected_brier` is the selected candidate's three-class help/harm/tie Brier score, averaged over matched repeats, then states within episode, then episodes. These are descriptive results on inspected cohorts.
+
+[`repair_frozen_heads.csv`](data/repair_frozen_heads.csv) includes all 42 unchanged heads for main and timing-pilot groups at K4/K8 across three banks. Its `gain`, `help`, and `harm` columns use reference 0; the separately named `*_vs_fixed3` columns use reference 3. Keep pilot rows separate from main results.
+
+The [comparison figure](figures/comparative_readouts.png) is available as PNG, [PDF](figures/comparative_readouts.pdf), and [SVG](figures/comparative_readouts.svg). Its plotted model values were checked against the two readout CSVs before publication. The public tables support inspection of recorded aggregates; they do not supply the raw encoder inputs required to reproduce model fitting. The dated collection, fitting declarations, cloud orchestration, and raw exports remain in the private research workspace. The public release provides reusable feature/readout modules, synthetic tests, and the declared scientific method.
+
 ## Simulator/model experiments
 
 The research modules remain under `src/trust_imagination/`. Simulation uses Meta-World/MuJoCo; frozen policy and dynamics adapters use LeRobot/SmolVLA and JEPA-WMs. Exact upstream revisions, checkpoint hashes, cameras, preprocessing, and action conventions are recorded in the two model-manifest JSON files under `configs/`.
