@@ -1,5 +1,24 @@
 # Reproduction
 
+## Completed trajectory study
+
+Recompute all 108 readout rows, 72 controls, and primary contrasts using Python 3.10+ and the standard library:
+
+```bash
+python -S scripts/summarize_trajectory_study.py --input docs/data/trajectory_study.json --output runs/trajectory
+```
+
+The generated summary and CSV tables match the committed `trajectory_summary.json`, `trajectory_readouts.csv`, and `trajectory_controls.csv` under `docs/data/`. CI checks this on both supported Python versions. The command validates the complete recorded grid and recomputes episode-weighted metrics from paired binary outcomes and saved selections. It does not regenerate model choices or forecasts. See the [data schema](trajectory-data.md).
+
+To regenerate the figure separately:
+
+```bash
+python -m pip install -e ".[plots]"
+python scripts/plot_trajectory_study.py --input docs/data/trajectory_summary.json --output runs/trajectory-figure
+```
+
+This writes PNG, PDF, and SVG. Individual seed groups are shown rather than a confidence interval based on only three clusters.
+
 ## Cached decision audit
 
 Python 3.10+ is sufficient for the generic audit. It loads the public cached scores and matched outcomes, without initializing a model:

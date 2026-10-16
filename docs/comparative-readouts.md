@@ -35,14 +35,12 @@ The trajectory change is a debugging lead. Endpoint performance worsened under a
 
 Every model, bank, budget, and predeclared threshold is retained in the [fixed-reference](data/fixed_reference_readouts.csv) and [all-reference](data/all_reference_readouts.csv) tables. Each round has 432 records. Each independent metric verifier checked 116,970 scalar values, and each run separately reconstructed 21,168 probability values. Those checks establish implementation consistency; they do not increase the scientific sample size.
 
-## Fresh collection status, October 14, 2026
+## Completed fresh study, October 16, 2026
 
-The [separate frozen study](trajectory-study.md) plans 36 source episodes. Its first shard, seeds 47/48, is complete: **six training episodes, 16 reached states, 768 unique main candidate/repeat traces, and 48 exact base-policy continuation replays**. The physical base policy uses candidate 0; the comparative scorer reference remains logical index 3.
+The separate 36-episode study is complete. All source episodes passed raw-member and physical trace verification. Six readouts were fitted on 18 training episodes, calibrated on nine episodes, and frozen before scoring the nine development episodes.
 
-The timing pilot, seed 59, has three states, 144 traces, and nine base-policy replays. It is excluded from fitting and scientific aggregates. Collector runtime was 49.23 minutes, including the pilot and model loading.
+On repair K8, the predeclared trajectory + metadata model reached 51.85% intervention success, below direct + metadata at 52.78% and the fixed reference at 55.56%. It failed the advancement criterion. The secondary plain direct readout reached 60.19%, matching the measured offline ceiling, with all gain in seed58.
 
-All 1,076 regular export members passed hash verification, and the physical trace validator found no missing main grid cell. A read-only deployment-feature audit passed 864 feature blocks and 8,016 contract assertions across all 16 states, three banks, K4/K6/K8, and six feature specifications. Checks covered finite inputs, shared current/action blocks, reference differences, common-four bank equivalence, endpoint/trajectory alignment, and independence from outcome, support, actual-future, and goal keys. Earlier predicted frames affected trajectory features without affecting endpoint features. The [feature verification record](data/fresh_feature_verification.json) preserves the counts and source digests.
+Training was data-limited: only two of 54 training states had helpful policy/mixed alternatives, both on push. The completed cohort has only three development seed groups. These results do not establish a trajectory advantage, a dependable gate, or controller improvement.
 
-These are integrity results. No fresh head fitting, threshold selection, performance aggregate, or evaluation-group scoring has occurred. Six of 36 planned source episodes are complete; the next shard remains uncollected because GPU start requests failed on capacity. Evaluation seeds 56–58 have not been opened for performance analysis; reserved seeds 32–39 remain unopened.
-
-The recorded demo still represents the original 18-episode audit. It does not include these newer cohorts or imply a prospective controller improvement.
+See the [complete results](trajectory-results.md), [frozen protocol](trajectory-study.md), and [reproduction commands](reproduction.md). All 108 readout rows and 72 controls are retained. The recorded demo continues to show the earlier 18-episode audit; the cohorts are separate.

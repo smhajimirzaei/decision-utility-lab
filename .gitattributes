@@ -16,3 +16,4 @@ demo/decisions.csv linguist-generated=true
 demo/index.html linguist-generated=true
 docs/figures/*.svg linguist-generated=true -diff
 docs/data/*.csv linguist-generated=true
+docs/data/*.json linguist-generated=true

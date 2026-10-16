@@ -3,6 +3,8 @@
   "recorded_data_unchanged": true,
   "text_line_endings": "LF",
   "source_proofs_in_provenance": true,
+  "presentation_updated": "2026-10-16",
+  "recorded_cohort_episodes": 18,
   "files": [
     {
       "path": "assets/door-open-v3_seed27.mp4",
@@ -661,8 +663,8 @@
     },
     {
       "path": "desktop.png",
-      "bytes": 224014,
-      "sha256": "09034c6376b448282ed80df78bbc0519ff554777db22183f170c34f94fb7e90f"
+      "bytes": 198446,
+      "sha256": "5a70d26ad0a78935b2db29f1fdae5afb6f344750598015653b1c96c4bd7f79a5"
     },
     {
       "path": "independent_verification.json",
@@ -671,8 +673,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 4666197,
-      "sha256": "648dbfb503b4f144bae9649aa66acf2baeb7b85ad7d122e5886f5aab1e08e7af"
+      "bytes": 4666662,
+      "sha256": "599e32f8b493ac771de5ce1a6c78076670d672a9a134fc195e1a5907df7f655d"
     },
     {
       "path": "inputs.json",
@@ -681,8 +683,8 @@
     },
     {
       "path": "mobile.png",
-      "bytes": 44550,
-      "sha256": "1d5db9c891b949cfee837cb5c70ca20f5a6f9f755ba2ca1e4bac209073b16149"
+      "bytes": 46419,
+      "sha256": "5ac51332cf2909a16d538825331de53ff0ba67660faed3d8426e0c99baccff5d"
     },
     {
       "path": "provenance/source_browser_verification.json",
@@ -701,8 +703,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 184,
-      "sha256": "a0d8e8895e71cd6b7a318736ad532e57a60d737095bcfa3f55a5341ea2a270fe"
+      "bytes": 650,
+      "sha256": "3ed2271bc916d01768e4868f691bd82890c51e26430387226b65610fe16da669"
     },
     {
       "path": "report.json",

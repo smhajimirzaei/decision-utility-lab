@@ -1,71 +1,83 @@
 # Decision Utility Lab
 
-An audit toolkit for action selection in vision-language-action (VLA) and latent world-model systems.
+Tools and experiments for checking whether world-model forecasts improve a robot's action choices.
 
-The central question is practical: **does choosing a different action help, or does the candidate bank leave nothing useful to choose?** The toolkit separates available improvement from selection error using matched simulator continuations. It includes the research modules, CPU tests, and a recorded Meta-World demonstration.
+[![CPU tests](https://github.com/smhajimirzaei/decision-utility-lab/actions/workflows/test.yml/badge.svg)](https://github.com/smhajimirzaei/decision-utility-lab/actions/workflows/test.yml)
 
-![Recorded decision-audit interface](demo/desktop.png)
+[Latest study](docs/trajectory-results.md) · [Recorded demo](demo/) · [Methods](docs/methodology.md) · [Reproduction](docs/reproduction.md)
 
-## Try it
+A selector can make mistakes because it misreads the future, or because none of its candidate actions would help. This project separates those cases using matched simulator continuations. A frozen SmolVLA policy supplies actions; a latent world model supplies forecasts. Direct/action controls test whether those forecasts add anything useful.
 
-Open [`demo/index.html`](demo/index.html) locally. Keep `demo/assets/` beside it. The demo runs without a server, GPU, or model download. A GitHub file preview shows the HTML source; download or clone the repository to use the controls.
+## Latest result
+
+The completed trajectory study contains **36 source episodes** across reach, push, and door opening: 18 for training, nine for calibration, and nine for development evaluation. Models and thresholds were frozen before development scoring.
+
+| Repair bank, eight candidates | Intervention success |
+|---|---:|
+| Fixed reference action | 55.56% |
+| Direct/action + metadata | 52.78% |
+| Endpoint forecast + metadata | 50.00% |
+| **Trajectory forecast + metadata — predeclared primary** | **51.85%** |
+| Direct/action without metadata — secondary ablation | 60.19% |
+| Best measured offline candidate — optimistic control | 60.19% |
+
+**The primary method did not meet the advancement criterion.** Its gain was 0.93 percentage points below the matched direct control and 3.70 points below the fixed reference. The secondary action-only result is interesting, but all its improvement came from one development seed group.
+
+![Readout gains and their variation across development seed groups](docs/figures/trajectory_study.png)
+
+These are single-intervention outcomes on nine development episodes in three seed groups, not full-controller success rates. Training was data-limited: only two of 54 reached training states had helpful alternatives to the reference. The study does not establish a reliable intervention gate, a formal harm guarantee, or a general limitation of world models.
+
+The [results report](docs/trajectory-results.md) retains all six readouts, fixed-action controls, per-seed differences, and the stopping decision.
+
+## Reproduce the numbers
+
+Python 3.10 or later is enough. The recorded-study auditor uses only the standard library:
 
 ```bash
 git clone https://github.com/smhajimirzaei/decision-utility-lab.git
 cd decision-utility-lab
-python -S scripts/audit_decisions.py --input demo/inputs.json --output runs/example
+python -S scripts/summarize_trajectory_study.py --input docs/data/trajectory_study.json --output runs/trajectory
 ```
 
-The audit command uses only the Python standard library and requires Python 3.10 or later. It writes a JSON report and CSV decision table. Use a new output directory for each run.
+This recomputes 108 readout rows, 72 controls, and the primary contrasts from saved choices and paired binary outcomes. It writes JSON, CSV, and a Markdown report. Use a new output directory for each run. It does not rerun model fitting, forecast inference, or simulation.
 
-For development:
+For the CPU tests:
 
 ```bash
 python -m pip install -e ".[test]"
 python -m pytest -q
 ```
 
-## What the study found
+See [reproduction](docs/reproduction.md) for figure generation, the earlier audit, and the separate simulator/model environment.
 
-The included data covers three manipulation tasks, 18 source episodes, and 54 reached decision states. Each candidate has three matched continuations. Both proposal banks, candidate budgets of four and eight, and all 42 frozen scorers are retained.
+## Recorded demo
 
-For the eight-sample VLA bank, the reference achieved **52.78%** episode-weighted intervention success. Choosing the best tested candidate after observing outcomes gives **56.94%**, an optimistic ceiling. Only **3 of 54 states** had a measured helpful alternative. The latest cohort had none.
+![Recorded action-selection audit](demo/desktop.png)
 
-This limits what a selector can achieve on these choices. Some future scorers made harmful switches; the study does not establish a deployed imagination benefit. The demo keeps those cases visible alongside improvements and ties.
+Open [`demo/index.html`](demo/index.html) locally, keeping `demo/assets/` beside it. Download or clone the repo first; GitHub's file preview shows HTML source. No server, GPU, or model download is required.
 
-See [results](docs/results.md) for the cohort comparison and [methodology](docs/methodology.md) for the intervention contract and weighting. These are development observations, not a final test or a combined closed-loop controller evaluation.
+The demo shows an **earlier 18-episode audit**, with native observations, source-policy videos, 42 frozen scorers, and helpful, harmful, and tied cases. It is a separate cohort from the completed trajectory study above. The future model predicts latent features; the videos are recorded policy execution, not generated futures.
 
-The [October follow-up](docs/comparative-readouts.md) tests wider repair proposals and six comparative readouts. All-reference supervision improved some readouts, but every model still fell below the strong fixed-action control on the repair cohort. The release includes both complete readout tables, the comparison figure, and CPU tests for deployment features and paired labels. A separate 36-episode study has collected and verified its first six training episodes; see the [frozen protocol](docs/trajectory-study.md). The recorded demo above continues to show the original 18-episode audit.
+```bash
+python -S scripts/audit_decisions.py --input demo/inputs.json --output runs/demo-audit
+```
 
-## What is here
+## Repository guide
 
-| Path | Contents |
+| Path | Purpose |
 |---|---|
-| `src/trust_imagination/decision_audit.py` | Model-independent validation and decision metrics |
-| `src/trust_imagination/` | Proposal construction, simulator branching, model adapters, and research readouts |
-| `src/trust_imagination/trajectory_benefit.py` | Direct, endpoint, and chronological forecast features with paired benefit heads |
-| `src/trust_imagination/pairwise_benefit_queries.py` | Comparison queries for arbitrary candidate references |
-| `scripts/audit_decisions.py` | Standard-library audit command |
-| `scripts/build_demo.py` | Rebuild the portable demo from cached audit inputs |
-| `scripts/analyze_*.py` | Trace and intervention analyses for raw research exports |
-| `configs/` | Experiment settings and pinned upstream model manifests |
-| `tests/` | CPU tests for contracts, metrics, readouts, and matched outcomes |
-| `demo/` | Recorded data, native observations, source videos, and verification records |
-| `docs/` | Methods, schema, results, and reproduction notes |
-| `docs/data/` | Complete comparative readout tables and fresh feature verification |
+| [`decision_audit.py`](src/trust_imagination/decision_audit.py) | General audit of candidate scores and matched outcomes |
+| [`recorded_study.py`](src/trust_imagination/recorded_study.py) | Exact episode-weighted replay of the completed trajectory study |
+| [`trajectory_benefit.py`](src/trust_imagination/trajectory_benefit.py) | Direct, endpoint, and chronological forecast features; help/harm heads |
+| [`configs/`](configs/) | Experiment settings and pinned upstream model manifests |
+| [`docs/data/`](docs/data/) | Recorded choices, paired outcomes, and complete tables |
+| [`tests/`](tests/) | CPU checks for contracts, weighting, leakage, and readouts |
+| [`demo/`](demo/) | Portable recorded audit and its media |
 
-The packaged demo is enough to reproduce the decision audit. Full simulator/model collection needs separate upstream downloads and a compatible research environment; see [reproduction notes](docs/reproduction.md). Model weights, raw latent archives, and cloud account configuration are not part of this release.
+The [original audit](docs/results.md), [repair experiments](docs/comparative-readouts.md), and [frozen trajectory protocol](docs/trajectory-study.md) document how the question developed. Related work and the contribution's limits are discussed in [research notes](docs/research.md).
 
-## Reading the demo
+## Dependencies and scope
 
-- The cards summarize the selected population; the panels below explain one decision.
-- “Best measured” uses outcomes and is an offline control, not a deployment method.
-- Images are native observations. Videos show the recorded source policy, which is separate from the forked interventions.
-- JEPA predicts latent features. The demo does not present generated future videos.
-- Three repeats give coarse observed frequencies. Candidate branches and adjacent states are not independent episode samples.
+The experiments use [Meta-World](https://github.com/Farama-Foundation/Metaworld), [SmolVLA / LeRobot](https://github.com/huggingface/lerobot), and [JEPA-WMs](https://github.com/facebookresearch/jepa-wms). Full collection requires separate upstream downloads and a compatible research environment. Foundation-model weights, raw latent archives, and cloud configuration are not included.
 
-## Background
-
-The study uses [Meta-World](https://github.com/Farama-Foundation/Metaworld), [SmolVLA / LeRobot](https://github.com/huggingface/lerobot), and [JEPA-WMs](https://github.com/facebookresearch/jepa-wms). Relevant work on verification, planning range, and action discrimination is collected in the [research notes](docs/research.md).
-
-A project license has not been assigned yet. Third-party software and simulator assets retain their upstream licenses; see [third-party notices](THIRD_PARTY_NOTICES.md).
+A project license has not been assigned. Third-party software and assets retain their upstream terms; see [third-party notices](THIRD_PARTY_NOTICES.md).

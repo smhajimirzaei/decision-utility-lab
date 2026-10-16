@@ -42,4 +42,4 @@ Require a complete, verified training/calibration grid before fitting. Keep part
 
 If primary trajectory gain over direct inputs is nonpositive on repair K8 evaluation, retain the negative result and stop short of prospective controller claims. A positive result requires a separately declared sample-size and controller protocol, per-group consistency checks, and an adequate independent confirmation before opening reserved seeds. No extra scientific tranche or final reserved collection is part of this initial protocol.
 
-Current progress and limits are recorded in the [follow-up report](comparative-readouts.md).
+The study completed on October 16, 2026. The primary method failed its advancement criterion; see the [complete results](trajectory-results.md). The protocol above preserves the design declared before collection.

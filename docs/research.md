@@ -11,4 +11,6 @@ Several close works constrain the contribution:
 - [The Planning Limits of Latent World Models](https://arxiv.org/abs/2609.39235v1) studies planning range, rollout horizons, subgoals, and VLA proposal selection. Short-horizon failure alone is not a new contribution.
 - [AD-WM](https://arxiv.org/abs/2609.30264v2) trains action-discriminative dynamics and reports planning-specific diagnostics. Action separation and prediction/control mismatch have direct precedent.
 
-This release is an evaluation toolkit and development case study. A method claim would need prospective transfer across candidate configurations and another model/policy pairing, with gains over strong direct controls. Novelty and conference readiness remain open.
+The [completed 36-episode study](trajectory-results.md) did not meet its predeclared advancement criterion: trajectory + metadata underperformed the matched direct control and the fixed reference on repair K8. A secondary action-only readout matched the measured offline ceiling, with all gain in one development group. Training contained only two helpful policy/mixed states, both on push.
+
+This release is an evaluation toolkit and development case study. A method claim would need prospective transfer across candidate configurations and another model/policy pairing, with gains over strong direct controls. The current result supplies no evidence of a trajectory advantage in this fixed readout/data regime; it does not establish that world models are generally unhelpful. Novelty and conference readiness remain open.

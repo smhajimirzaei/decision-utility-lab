@@ -23,3 +23,9 @@ jobs:
         run: |
           python -S scripts/audit_decisions.py --input demo/inputs.json --output runs/ci
           cmp demo/report.json runs/ci/report.json
+      - name: Reproduce completed trajectory study
+        run: |
+          python -S scripts/summarize_trajectory_study.py --input docs/data/trajectory_study.json --output runs/trajectory
+          cmp docs/data/trajectory_summary.json runs/trajectory/summary.json
+          cmp docs/data/trajectory_readouts.csv runs/trajectory/records.csv
+          cmp docs/data/trajectory_controls.csv runs/trajectory/controls.csv

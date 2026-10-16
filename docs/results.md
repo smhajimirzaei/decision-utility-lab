@@ -28,4 +28,4 @@ The adapter reproduced 504 existing model/bank/budget/cohort aggregates and 3,02
 
 The result identifies an opportunity bottleneck and concrete harmful rankings. It does not establish a reliable selective controller, language generalization, or a universal limit of world models. The offline ceiling uses few repeats and only the tested candidate bank. Forecast-generation cost is also absent from the cached-head scoring comparison.
 
-The subsequent proposal-repair and comparative-readout experiments are reported in [the October follow-up](comparative-readouts.md). They retain the unfavorable comparisons against a strong fixed-action control. A [separate fresh study](trajectory-study.md) is underway; its first shard has passed trace and feature checks, with no fresh utility result yet.
+The subsequent proposal-repair and comparative-readout experiments are reported in [the October follow-up](comparative-readouts.md). They retain the unfavorable comparisons against a strong fixed-action control. The [separate 36-episode study](trajectory-results.md) is complete and retains the negative primary result. Its development cohort is separate from this recorded audit.
